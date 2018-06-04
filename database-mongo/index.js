@@ -11,7 +11,6 @@ db.once('open', function() {
   console.log('mongoose connected successfully');
 });
 
-//
 var userSchema = mongoose.Schema({
   creator: String,
   quizzes: String
@@ -21,20 +20,37 @@ var User = mongoose.model('User', userSchema);
 
 var quizSchema = mongoose.Schema({
   email: String,
-  globalScore: Number,
+  globalScore: Number, // Will this need to auto-increment?
   attempt: String
 });
 
 var Quiz = mongoose.model('Quiz', quizSchema);
 
-var selectAll = function(callback) {
-  Item.find({}, function(err, items) {
+var save = function(model, info) {
+  var newEntry = new database(info);
+  newEntry.save(function(err, savedEntry) {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, savedEntry);
+    }
+  })
+};
+
+var selectAll = function(model, callback) {
+  model.find({}, function(err, entries) {
     if(err) {
       callback(err, null);
     } else {
-      callback(null, items);
+      callback(null, entries);
     }
   });
 };
 
+var incrementScore = function() {
+// increment
+};
+
+module.exports.save = save;
 module.exports.selectAll = selectAll;
+module.exports.incrementScore = incrementScore;

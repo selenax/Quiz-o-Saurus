@@ -1,52 +1,51 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
-
-var db = mongoose.connection;
-
-db.on('error', function() {
-  console.log('mongoose connection error');
-});
-
-db.once('open', function() {
-  console.log('mongoose connected successfully');
-});
-
-//
-var userSchema = mongoose.Schema({
-  creator: String,
-  quizzes: String
-});
-
-var User = mongoose.model('User', userSchema);
-
-var quizSchema = mongoose.Schema({
-  email: String,
-  globalScore: Number,
-  attempt: String
-});
-
-var Quiz = mongoose.model('Quiz', quizSchema);
-
-var save = function(model, info) {
-  var newEntry = new database(info);
-  newEntry.save(function(err, savedEntry) {
-    if (err) {
-      callback(err, null);
-    } else {
-      callback(null, savedEntry);
+var userData = {
+  email: 'admin@gmail.com',
+  attempts: [
+    {
+      quizId: 'dinosaur',
+      score: 0
     }
-  })
+  ]
 };
 
-var selectAll = function(model, callback) {
-  model.find({}, function(err, entries) {
-    if(err) {
-      callback(err, null);
-    } else {
-      callback(null, entries);
+var quizData = {
+  creator: 'admin@gmail.com',
+  quizzes: [
+    {
+      quizName: 'dinosaur',
+      questions: [
+        {
+          text: 'How long have dinosaurs lived on earth?',
+          options: ['245 million years', '24.5 million years', '2.45 million years', '245,000 years'],
+          correctAnswer: '245 million years'
+        },
+        {
+          text: 'Roughly how many species of extinct dinosaurs are known to have existed?',
+          options: ['350', '700', '3,500', '7,000'],
+          correctAnswer: '700'
+        },
+        {
+          text: 'How many continents have dinosaur fossils been found on?',
+          options: ['4', '5', '6', '7'],
+          correctAnswer: '7'
+        },
+        {
+          text: 'What is a person who studies dinosaurs known as?',
+          options: ['archaeologist', 'fossilologist', 'paleontologist', 'dinosaurologist'],
+          correctAnswer: 'paleontologist'
+        },
+        {
+          text: 'What was the first dinosaur to be formally named in 1824?',
+          options: ['Megalosaurus', 'Brachiosaurus', 'Stegosaurus', 'Ankylosaurus'],
+          correctAnswer: 'Megalosaurus'
+        }
+      ]
     }
-  });
+  ]
 };
 
-module.exports.save = save;
-module.exports.selectAll = selectAll;
+var insertData = function() {
+
+};
+
+insertData();
