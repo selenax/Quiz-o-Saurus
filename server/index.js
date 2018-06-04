@@ -1,17 +1,41 @@
 //starting up express onto server
-var express = require('express');
-var bodyParser = require('body-parser'); //parses incoming req
-var data = require('../database-mongo');
+const express = require('express');
+const bodyParser = require('body-parser'); //parses incoming req
+const data = require('../database-mongo');
 
-var app = express();
+const app = express(),
+      passport = require('passport'),
+      auth = require('./auth.js');
+
+auth(passport);
 
 app.use(express.static(__dirname + '/../react-client/dist'));
-app.use(bodyParse.json());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(passport.initialize());
 
 
 //google api console get req
+  //client id: 742940875432-d88m20e2l2110l3m3jd24ag46v2a3pbm.apps.googleusercontent.com
+  //callback: http://localhost:3000/auth/google/callback
+  //client secret: LfaK1hn8P-3KDjsIAdv9tWQf
   //then do post req when user confirms google authentication
+app.get('/', (req, res) => {
+    res.json({
+        status: 'session cookie not set'
+    });
+});
+
+app.get('/auth/google', passport.authenticate('google', {
+    scope: ['https://www.googleapis.com/auth/userinfo.profile']
+}));
+
+app.get('/auth/google/callback',
+    passport.authenticate('google', {
+        failureRedirect: '/'
+    }),
+    (req, res) => {}
+);
 
 
 //overall, there are two get requests, note** need list of endpoints
@@ -49,7 +73,7 @@ app.post('/endpoint-for-user-change-l8r', function(req, res) {
   data.save(quizComplete);
 });
 
-app.listen(3000, function() {
+app.listen(3000, () => {
   console.log('listening on port 3000!');
 });
 
