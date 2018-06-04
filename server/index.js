@@ -72,7 +72,7 @@ app.get('/logout', (req, res) => {
 //maybe have to do post when client creates an account
   //store email to database
 app.post('/endpoint-for-user-change-l8r', function(req, res) {
-
+  //???
 });
 
 //overall, there are two get requests, note** need list of endpoints
