@@ -30,6 +30,7 @@ app.use(cookieParser());
   //client secret: LfaK1hn8P-3KDjsIAdv9tWQf
   //then do post req when user confirms google authentication
 
+//------------google oauth------------//
 //redirects client to google login page
 app.get('/', (req, res) => {
   if (req.session.token) { //if token exists
@@ -65,10 +66,18 @@ app.get('/logout', (req, res) => {
     req.session = null; //delete the set cookie
     res.redirect('/');
 });
+//------------google oauth end------------//
+
+
+//maybe have to do post when client creates an account
+  //store email to database
+app.post('/endpoint-for-user-change-l8r', function(req, res) {
+
+});
 
 //overall, there are two get requests, note** need list of endpoints
 //get request for user info (includes email, global score, and score for each attempted quiz)
-app.get('/endpoint-for-user-change-l8r', function (req, res) {
+app.get('/endpoint-for-user-change-l8r', function(req, res) {
   //fetch info from database (.retrieve name may vary l9r)
   data.retrieve(function(err, data) {
     if(err) {
@@ -80,7 +89,7 @@ app.get('/endpoint-for-user-change-l8r', function (req, res) {
 });
 
 //get request for quizzes
-app.get('/endpoint-for-quiz-change-l8r', function (req, res) {
+app.get('/endpoint-for-quiz-change-l8r', function(req, res) {
   //fetch info from database (.retrieve name may vary l9r)
   data.retrieve(function(err, data) {
     if(err) {
