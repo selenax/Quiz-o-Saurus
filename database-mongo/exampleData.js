@@ -27,14 +27,26 @@ var quizSchema = mongoose.Schema({
 
 var Quiz = mongoose.model('Quiz', quizSchema);
 
-var selectAll = function(callback) {
-  Item.find({}, function(err, items) {
+var save = function(model, info) {
+  var newEntry = new database(info);
+  newEntry.save(function(err, savedEntry) {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, savedEntry);
+    }
+  })
+};
+
+var selectAll = function(model, callback) {
+  model.find({}, function(err, entries) {
     if(err) {
       callback(err, null);
     } else {
-      callback(null, items);
+      callback(null, entries);
     }
   });
 };
 
+module.exports.save = save;
 module.exports.selectAll = selectAll;
