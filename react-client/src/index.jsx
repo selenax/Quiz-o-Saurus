@@ -21,6 +21,12 @@ class App extends React.Component {
 
   renderView() {
     const {view} = this.state;
+
+    if (view === 'home') {
+      return (
+        <QuizListComponent /> 
+      )
+    }
   }
 
   render () {
@@ -34,16 +40,16 @@ class App extends React.Component {
           <span className={this.state.view === 'home'
             ? 'nav-selected'
             : 'nav-unselected'}
-            onClick={() => this.changeView('home')}>
+            onClick={() => this.updateView('home')}>
           <b>Home</b>
           </span>
           <span className="nav-unselected"
-            onClick={() => this.changeView('leaderboard')}
+            onClick={() => this.updateView('leaderboard')}
           >
           <b>Leaderboard</b>
           </span>
           <span className="nav-unselected"
-            onClick={() => this.changeView('results')}
+            onClick={() => this.updateView('results')}
           >
           <b>Results</b>
           </span>
