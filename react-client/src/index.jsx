@@ -29,23 +29,23 @@ class App extends React.Component {
         <div className="nav">
           <span className="logo"
             onClick={() => this.updateView('home')}>
-            <b>Quiz o' Saurus</b>
+          <b>Quiz o' Saurus</b>
           </span>
           <span className={this.state.view === 'home'
             ? 'nav-selected'
             : 'nav-unselected'}
             onClick={() => this.changeView('home')}>
-            <b>Home</b>
+          <b>Home</b>
           </span>
           <span className="nav-unselected"
             onClick={() => this.changeView('leaderboard')}
           >
-            <b>Leaderboard</b>
+          <b>Leaderboard</b>
           </span>
           <span className="nav-unselected"
             onClick={() => this.changeView('results')}
           >
-            <b>Results</b>
+          <b>Results</b>
           </span>
         </div>
         <div className="main">
