@@ -1,3 +1,5 @@
+
+
 var userData = {
   email: 'admin@gmail.com',
   attempts: [
@@ -38,6 +40,31 @@ var quizData = {
           text: 'What was the first dinosaur to be formally named in 1824?',
           options: ['Megalosaurus', 'Brachiosaurus', 'Stegosaurus', 'Ankylosaurus'],
           correctAnswer: 'Megalosaurus'
+        },
+        {
+          text: 'From what type of dinosaurs did birds descend?',
+          options: ['pterosaurs', 'herrerasaurids', 'theropods', 'sauropods'],
+          correctAnswer: 'theropods'
+        },
+        {
+          text: 'What is often referred to as the Age of the Dinosaurs because most dinosaurs developed and became extinct during this time?',
+          options: ['Paleozoic Era', 'Mesozoic Era', 'Cenozoic Era', 'None of the above'],
+          correctAnswer: 'Mesozoic Era'
+        },
+        {
+          text: 'How many horns did Triceratops have?',
+          options: ['0', '1', '2', '3'],
+          correctAnswer: '3'
+        },
+        {
+          text: 'What was the largest dinosaur?',
+          options: ['Argentinosaurus', 'Apatosaurus', 'Tyrannosaurus Rex', 'Giganotosaurus'],
+          correctAnswer: 'Argentinosaurus'
+        },
+        {
+          text: 'During what time period did the Tyrannosaurus Rex live?',
+          options: ['Triassic Period', 'Jurassic Period', 'Cretaceous Period', 'Paleogene Period'],
+          correctAnswer: 'Cretaceous Period'
         }
       ]
     }

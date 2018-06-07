@@ -37,14 +37,8 @@ var save = function(model, info) {
   })
 };
 
-var selectAll = function(model, callback) {
-  model.find({}, function(err, entries) {
-    if(err) {
-      callback(err, null);
-    } else {
-      callback(null, entries);
-    }
-  });
+var returnQuiz = function() {
+
 };
 
 var incrementScore = function() {
@@ -52,5 +46,5 @@ var incrementScore = function() {
 };
 
 module.exports.save = save;
-module.exports.selectAll = selectAll;
+module.exports.returnQuiz = returnQuiz;
 module.exports.incrementScore = incrementScore;
