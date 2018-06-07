@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "react-dev": "webpack -d --watch",
+    "start": "nodemon server/index.js",
     "server-dev": "nodemon server/index.js"
   },
   "author": "Ainslie Hsu, Kenny Le, Selena Xu, Yona Nagayama",
@@ -23,6 +24,7 @@
     "jquery": "^3.1.1",
     "mongoose": "^4.8.6",
     "mysql": "^2.13.0",
+    "nodemon": "^1.17.5",
     "npm": "^6.1.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
