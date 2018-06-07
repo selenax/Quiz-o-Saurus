@@ -1,6 +1,4 @@
-
-
-var userData = {
+const userData = {
   email: 'admin@gmail.com',
   attempts: [
     {
@@ -10,7 +8,7 @@ var userData = {
   ]
 };
 
-var quizData = {
+const quizData = {
   creator: 'admin@gmail.com',
   quizzes: [
     {
@@ -76,3 +74,6 @@ var insertData = function() {
 };
 
 insertData();
+
+export default userData;
+export default quizData;
