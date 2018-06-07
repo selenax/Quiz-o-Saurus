@@ -1,35 +1,60 @@
-timport React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import List from './components/List.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
+      view: 'home'
     }
   }
 
   componentDidMount() {
-    $.ajax({
-      url: '/items',
-      success: (data) => {
-        this.setState({
-          items: data
-        })
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
+  }
+
+  updateView(view) {
+    this.setState({
+      view: view
     });
   }
 
+  renderView() {
+
+  }
+
   render () {
-    return (<div>
-      <h1>Item List</h1>
-      <List items={this.state.items}/>
-    </div>)
+    return (
+      <div>
+        <div className="nav">
+          <span className="logo"
+            onClick={() => this.updateView('home')}>
+            Quiz o' Saurus
+          </span>
+          <span className={this.state.view === 'home'
+            ? 'nav-selected'
+            : 'nav-unselected'}
+            onClick={() => this.changeView('home')}>
+            Home
+          </span>
+          <span className="nav-unselected"
+            onClick={() => this.changeView('leaderboard')}
+          >
+            Leaderboard
+          </span>
+          <span className="nav-unselected"
+            onClick={() => this.changeView('results')}
+          >
+            Results
+          </span>
+        </div>
+        <div className="main">
+          <div>
+            {this.renderView()}
+          </div>
+        </div>
+      </div>
+    )
   }
 }
 
