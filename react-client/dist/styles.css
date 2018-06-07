@@ -1,11 +1,8 @@
-.nav {
-    background-color: #8FBC8F;
-    margin: 0px;
-    padding: 10px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    font-family: 'Francois One';
+img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 150px;
 }
 
 .logo {
@@ -17,6 +14,16 @@
 	line-height: 26.4px;
 }
 
+.nav {
+    background-color: #8FBC8F;
+    margin: 0px;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-family: 'Francois One';
+}
+
 .nav-selected {
     padding: 5px;
     color: white;
@@ -25,9 +32,24 @@
     font-size: 1.1em;
 }
   
-  .nav-unselected {
+.nav-unselected {
     padding: 5px;
     margin-right: 5px;
     font-size: 1.1em;
 }
-  
+
+.quiz-list-display {
+    min-height: 200px;
+    width: 165px;
+    margin: 16px;
+    list-style: none;
+    border: 1px solid #77777769;
+    background-color: #fdfdfd;
+    border-radius: 4px;
+    padding: 15px 30px 0px 30px;
+    box-shadow: 0 0 1em #80808066;
+}
+
+.quiz-list-title {
+    margin-top: 8px;
+}

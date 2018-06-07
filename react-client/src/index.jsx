@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
+import QuizListComponent from './components/Home/QuizListComponent.jsx'
+
 class App extends React.Component {
   constructor(props) {
     super(props);
