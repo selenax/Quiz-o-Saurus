@@ -23,7 +23,7 @@ app.use(passport.initialize());
 app.use(cookieSession({name: 'session', keys: ['810']}));
 app.use(cookieParser());
 
-
+let port = process.env.PORT || 3000;
 //google api console get req
   //client id: 742940875432-d88m20e2l2110l3m3jd24ag46v2a3pbm.apps.googleusercontent.com
   //callback: http://localhost:3000/auth/google/callback
@@ -110,7 +110,7 @@ app.post('/endpoint-for-user-change-l8r', function(req, res) {
   data.save(quizComplete);
 });
 
-app.listen(3000, () => {
-  console.log('listening on port 3000!');
+app.listen(port, () => {
+  console.log(`YAY listening on port ${port}`);
 });
 
