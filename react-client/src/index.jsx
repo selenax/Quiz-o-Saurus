@@ -20,7 +20,7 @@ class App extends React.Component {
   }
 
   renderView() {
-
+    const {view} = this.state;
   }
 
   render () {
