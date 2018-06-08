@@ -21,7 +21,7 @@ constructor(props) {
   }
 }
 
-//request an arary of top 10 score user profile  
+//request an array of top 10 score user profile  
 fetchScore() {
   axios.get("/home/leaderboard").then(({ data: data }) => {
     console.log("success here's the top 10!", data);
@@ -40,7 +40,7 @@ UpdateScore(userId) {
   })
 }
 
-
+// debounce  _.debounce(function, wait, [immediate])
 render() {
   return (
 
