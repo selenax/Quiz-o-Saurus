@@ -4,14 +4,16 @@ import LeaderboardEntry from './LeaderboardEntry.jsx';
 
 //should receive an array of 10 highest score user profiles 
 //set time to render new score every 10 seconds 
-const Leaderboard = ({data, handleClick}) => (
-  <div className="leaderboard">
+const Leaderboard = ({data}) => (
 
-    {data.map((item) => 
+  <div className="leaderboardlist">
+  console.log(data)
+
+    {data.map((user) => 
       <LeaderboardEntry
         handleClick={handleClick}
-        key={item._id}
-        item={item} 
+        key={user._id}
+        user={user} 
       />
     )}
   </div>
