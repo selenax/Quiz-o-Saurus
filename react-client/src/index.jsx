@@ -2,55 +2,56 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
+import QuizListComponent from './components/Home/QuizListComponent.jsx'
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       view: 'home'
     }
+    this.viewUpdate = this.viewUpdate.bind(this)
   }
 
   componentDidMount() {
   }
 
-  updateView(view) {
+  viewUpdate(newView) {
     this.setState({
-      view: view
-    });
+      view: newView
+    }) 
   }
 
-  renderView() {
-
+  currentPage() {
+    const {state} = this.state.view;
+    if (state === 'home') {
+      return (
+        <QuizListComponent />
+      );
+    }
   }
 
   render () {
     return (
-      <div>
-        <div className="nav">
-          <span className="logo"
-            onClick={() => this.updateView('home')}>
-            Quiz o' Saurus
-          </span>
-          <span className={this.state.view === 'home'
-            ? 'nav-selected'
-            : 'nav-unselected'}
-            onClick={() => this.changeView('home')}>
-            Home
-          </span>
-          <span className="nav-unselected"
-            onClick={() => this.changeView('leaderboard')}
-          >
-            Leaderboard
-          </span>
-          <span className="nav-unselected"
-            onClick={() => this.changeView('results')}
-          >
-            Results
-          </span>
-        </div>
-        <div className="main">
-          <div>
-            {this.renderView()}
+      <div className="nav">
+        <ul>
+          <li className="logo">Quiz o' Saurus</li>
+            <li className="nav-ui"
+              onClick={() => {this.viewUpdate('home')}}>
+              <a>Home</a>
+            </li>
+            <li className="nav-ui"
+              onClick={() => {this.viewUpdate('leaderboard')}}>
+              <a>Leaderboard</a>
+            </li>
+            <li className="nav-ui" 
+              onClick={() => {this.viewUpdate('result')}}>
+              <a>Result</a>
+            </li>
+        </ul>
+        <div>
+          <div className="pageRender">
+            {this.currentPage()}
           </div>
         </div>
       </div>
