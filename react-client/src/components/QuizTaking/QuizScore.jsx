@@ -45,7 +45,7 @@ render() {
   return (
 
     <div>
-      
+      <LeaderBoard data={data} />
     </div>
   )
   }
