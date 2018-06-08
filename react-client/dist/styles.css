@@ -56,3 +56,18 @@ ul {
   overflow: hidden;
   background-color: #8FBC8F;
 }
+
+.leaderboard-list-item {
+  min-height: 350px;
+  margin: 40px;
+  list-style: none;
+  border: 1px solid #77777769;
+  background-color: #fdfdfd;
+  border-radius: 4px;
+  padding: 30px 50px 0px 50px;
+  box-shadow: 0 0 1em #80808066;
+}
+
+.leaderboardlist {
+  padding: 0px 10% 0px 10%;
+}
