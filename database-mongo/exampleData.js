@@ -1,6 +1,8 @@
-let database = require('./index.js');
+// let database = require('./index.js');
 
 const userData = {
+  firstName: '',
+  lastName: '',
   email: 'c@gmail.com',
   globalScore: 20,
   attempts: [
@@ -12,10 +14,11 @@ const userData = {
 };
 
 const quizData = {
-  creator: 'admin@gmail.com',
   quizzes: [
     {
+      creator: 'admin@gmail.com',
       quizName: 'dinosaur',
+      imgUrl: 'https://i.pinimg.com/564x/ca/a8/42/caa8423f1fb11e575ed1795372531a26.jpg',
       questions: [
         {
           text: 'How long have dinosaurs lived on earth?',
@@ -72,27 +75,27 @@ const quizData = {
   ]
 };
 
-var insertData = function() {
-  // database.saveUser(userData, function(err, savedUser) {
-  //   if (err) {
-  //     console.log(err, null);
-  //   } else {
-  //     console.log(null, savedUser);
-  //   }
-  // });
+// let insertData = function() {
+//   database.saveUser(userData, function(err, savedUser) {
+//     if (err) {
+//       console.log(err, null);
+//     } else {
+//       console.log(null, savedUser);
+//     }
+//   });
 
-  // database.saveQuiz(quizData, function(err, savedQuiz) {
-  //   if (err) {
-  //     console.log(err, null);
-  //   } else {
-  //     console.log(null, savedQuiz);
-  //   }
-  // });
+//   database.saveQuiz(quizData, function(err, savedQuiz) {
+//     if (err) {
+//       console.log(err, null);
+//     } else {
+//       console.log(null, savedQuiz);
+//     }
+//   });
 
-  database.returnQuiz('dino');
-};
+//   database.incrementScore('ainslie@gmail.com', 'dinosaur', 200);
+// };
 
-insertData();
+//insertData();
 
 // export default userData;
-// export default quizData;
+export default quizData;

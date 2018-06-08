@@ -6,6 +6,7 @@ import QuizListComponent from "./components/Home/QuizListComponent.jsx";
 import Leaderboard from "./components/LeaderboardComponents/Leaderboard.jsx";
 
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +16,6 @@ class App extends React.Component {
     this.viewUpdate = this.viewUpdate.bind(this);
   }
 
-  componentDidMount() {}
 
   viewUpdate(newView) {
     this.setState({
@@ -23,7 +23,9 @@ class App extends React.Component {
     });
   }
 
+  //load different components depending on the website
   currentPage() {
+
     const { state } = this.state.view;
     if (state === "home") {
       return <QuizListComponent />;
@@ -33,6 +35,20 @@ class App extends React.Component {
   }
 
   render() {
+
+    if (this.state.view === 'home') {
+      console.log('hello')
+      return (
+        <QuizListComponent 
+          quizData={Dinosaur}
+        />
+      )
+    }
+  }
+
+  //render our nav bar
+  render () {
+
     return (
       <div className="nav">
         <ul>
