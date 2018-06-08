@@ -5,8 +5,8 @@ import $ from "jquery";
 import QuizListComponent from "./components/Home/QuizListComponent.jsx";
 import Leaderboard from "./components/LeaderboardComponents/Leaderboard.jsx";
 
-
-
+import Dinosauar from "../../database-mongo/exampleData.js";
+import UserData from "./UserExampleData";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +16,7 @@ class App extends React.Component {
     this.viewUpdate = this.viewUpdate.bind(this);
   }
 
-
+  //change the view of our website
   viewUpdate(newView) {
     this.setState({
       view: newView
@@ -25,11 +25,10 @@ class App extends React.Component {
 
   //load different components depending on the website
   currentPage() {
-
-    const { state } = this.state.view;
-    if (state === "home") {
-      return <QuizListComponent />;
-    } else if (state === "leaderboard") {
+    if (this.state.view === "home") {
+      console.log("hello");
+      return <QuizListComponent quizData={Dinosauar} />;
+    } else if (this.state.view === "leaderboard") {
       return <Leaderboard data={UserData} />;
     }
   }
