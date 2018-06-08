@@ -12,7 +12,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: "home"
+      view: "home",
+      quizzes: []
     };
     this.viewUpdate = this.viewUpdate.bind(this);
   }
@@ -23,6 +24,25 @@ class App extends React.Component {
       view: newView
     });
   }
+
+  //ajax fetch our list of quizzes from the server
+  ajaxQuizFetch(cb) {
+    $.ajax({
+      url: '/data/quizzes',
+      method: 'GET',
+      success: (data) => {
+        cb(data);
+      },
+      err: (err) => {
+        console.log('could not fetch', err);
+      }
+    })
+  }
+
+  //set the data of our quizzes from the server
+  quizFetch() {
+    this.ajaxQuizFetch((data) => this.setState({quizzes: data}))
+  } 
 
   //load different components depending on the website
   currentPage() {
