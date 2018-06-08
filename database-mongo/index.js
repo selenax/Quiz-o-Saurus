@@ -12,6 +12,8 @@ db.once('open', function() {
 });
 
 var userSchema = mongoose.Schema({
+  firstName: String,
+  lastName: String,
   email: String,
   globalScore: {type: Number, default: 0},
   attempts: [
@@ -37,10 +39,11 @@ var saveUser = function(info, callback) {
 };
 
 var quizSchema = mongoose.Schema({
-  creator: String,
   quizzes: [
     {
+      creator: String,
       quizName: String,
+      imgUrl: String,
       questions: [
         {
           text: String,
@@ -67,43 +70,51 @@ var saveQuiz = function(info, callback) {
 };
 
 // Find by quiz name and return object with with quiz name and quiz questions
-var returnQuiz = function(query) {
+var returnQuiz = function(query, callback) {
   Quiz.find({'quizzes.quizName': query}, function(err, results) {
     if (err) {
-      console.log(err, null);
+      callback(err, null);
     } else {
-      console.log(null, results);
+      callback(null, results);
     }
   })
 };
 
 // Update quiz score and increment global score
 var incrementScore = function(email, quizName, points) {
-  User.findOneAndUpdate({
-    'email': email}, {
-    $inc: {'globalScore': points},
-    $push: {
-      'attempts': {
-        'quizName': quizName,
-        'score': points
-      }
-    }
-  }, function(err, updatedEntry) {
+  User.find({'attempts.quizName': quizName}, function (err, result) {
     if (err) {
       console.log(err, null);
-    } else {
-      console.log(null, updatedEntry);
+    } else if (result === []) {
+      User.findOneAndUpdate({
+        'email': email}, {
+        $inc: {'globalScore': points},
+        $push: {
+          'attempts': {
+            'quizName': quizName,
+            'score': points
+          }
+        }
+      }, function(err, updatedEntry) {
+        if (err) {
+          console.log(err, null);
+        } else {
+          console.log(null, updatedEntry);
+        }
+      })
     }
   })
+
+
 };
 
 // Returns leaderboard (an array with objects) with ten highest scores in descending order
-var leaderboardScore = function() {
+var leaderboardScore = function(callback) {
   User.find({}, function(err, results){
     if (err) {
-      console.log(err, null);
+      callback(err, null);
     } else {
-      console.log(null, results);
+      callback(null, results);
     }
   })
   .sort('-globalScore')
