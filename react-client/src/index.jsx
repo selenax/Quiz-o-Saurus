@@ -14,12 +14,13 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    console.log('hello world');
   }
 
   viewUpdate(newView) {
     this.setState({
       view: newView
-    }) 
+    })
   }
 
   currentPage() {
@@ -44,7 +45,7 @@ class App extends React.Component {
               onClick={() => {this.viewUpdate('leaderboard')}}>
               <a>Leaderboard</a>
             </li>
-            <li className="nav-ui" 
+            <li className="nav-ui"
               onClick={() => {this.viewUpdate('result')}}>
               <a>Result</a>
             </li>
