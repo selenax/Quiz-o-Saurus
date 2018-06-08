@@ -10,57 +10,34 @@ class App extends React.Component {
     this.state = {
       view: 'home'
     }
+    this.viewUpdate = this.viewUpdate.bind(this)
   }
 
   componentDidMount() {
   }
 
-  updateView(view) {
-    this.setState({
-      view: view
-    });
-  }
-
-  renderView() {
-    const {view} = this.state;
-
-    if (view === 'home') {
-      return (
-        <QuizListComponent /> 
-      )
-    }
+  viewUpdate(state) {
+    this.setState({ view: state });
   }
 
   render () {
     return (
-      <div>
-        <div className="nav">
-          <span className="logo"
-            onClick={() => this.updateView('home')}>
-          <b>Quiz o' Saurus</b>
-          </span>
-          <span className={this.state.view === 'home'
-            ? 'nav-selected'
-            : 'nav-unselected'}
-            onClick={() => this.updateView('home')}>
-          <b>Home</b>
-          </span>
-          <span className="nav-unselected"
-            onClick={() => this.updateView('leaderboard')}
-          >
-          <b>Leaderboard</b>
-          </span>
-          <span className="nav-unselected"
-            onClick={() => this.updateView('results')}
-          >
-          <b>Results</b>
-          </span>
-        </div>
-        <div className="main">
-          <div>
-            {this.renderView()}
-          </div>
-        </div>
+      <div className="nav">
+        <ul>
+          <li className="logo">Quiz o' Saurus</li>
+          <li className="nav-ui"
+            onClick={this.viewUpdate.bind('home')}>
+            <a>Home</a>
+          </li>
+          <li className="nav-ui"
+            onClick={this.viewUpdate.bind('leaderboard')}>
+            <a>Leaderboard</a>
+          </li>
+          <li className="nav-ui" 
+            onClick={this.viewUpdate.bind('result')}>
+            <a>Result</a>
+          </li>
+        </ul>
       </div>
     )
   }
