@@ -75,11 +75,17 @@ app.post('/endpoint-for-user-change-l8r', function(req, res) {
   //???
 });
 
-//overall, there are two get requests, note** need list of endpoints
-//get request for user info (includes email, global score, and score for each attempted quiz)
-app.get('/endpoint-for-user-change-l8r', function(req, res) {
-  //fetch info from database (.retrieve name may vary l9r)
-  data.retrieve(function(err, data) {
+
+
+//list of endpoints
+//user
+
+//overall, there are two get requests
+
+//get request for user info (includes email, global score, and score for each attempted quiz)-  this is for rendering scores on leaderboard
+app.get('/scores', function(req, res) {
+  //fetch info from database
+  data.leaderboardScore(function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
@@ -88,8 +94,8 @@ app.get('/endpoint-for-user-change-l8r', function(req, res) {
   });
 });
 
-//get request for quizzes
-app.get('/endpoint-for-quiz-change-l8r', function(req, res) {
+//get request for quizzes - this is for rendering quiz under a SPECIFIC TOPIC
+app.get('/quizzes', function(req, res) {
   //fetch info from database (.retrieve name may vary l9r)
   data.retrieve(function(err, data) {
     if(err) {
@@ -101,8 +107,8 @@ app.get('/endpoint-for-quiz-change-l8r', function(req, res) {
   });
 });
 
-//post req to update tally at end of quiz for attempted quiz
-app.post('/endpoint-for-user-change-l8r', function(req, res) {
+//post req to update tally at end of quiz for attempted quiz, when quiz is taken
+app.post('/scores', function(req, res) {
   //we have info of username, quiz name, and score
   var quizComplete = req.body;
 
@@ -111,6 +117,6 @@ app.post('/endpoint-for-user-change-l8r', function(req, res) {
 });
 
 app.listen(port, () => {
-  console.log(`YAY listening on port ${port}`);
+  console.log(`YAY listening on port ${port}!!`);
 });
 
