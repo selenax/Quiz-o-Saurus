@@ -1,8 +1,11 @@
+let database = require('./index.js');
+
 const userData = {
-  email: 'admin@gmail.com',
+  email: 'c@gmail.com',
+  globalScore: 20,
   attempts: [
     {
-      quizId: 'dinosaur',
+      quizName: 'dinosaur',
       score: 0
     }
   ]
@@ -70,10 +73,26 @@ const quizData = {
 };
 
 var insertData = function() {
+  // database.saveUser(userData, function(err, savedUser) {
+  //   if (err) {
+  //     console.log(err, null);
+  //   } else {
+  //     console.log(null, savedUser);
+  //   }
+  // });
 
+  // database.saveQuiz(quizData, function(err, savedQuiz) {
+  //   if (err) {
+  //     console.log(err, null);
+  //   } else {
+  //     console.log(null, savedQuiz);
+  //   }
+  // });
+
+  database.returnQuiz('dino');
 };
 
 insertData();
 
-export default userData;
-export default quizData;
+// export default userData;
+// export default quizData;

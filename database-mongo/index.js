@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/dinosaurs');
 
 var db = mongoose.connection;
 
@@ -12,23 +12,22 @@ db.once('open', function() {
 });
 
 var userSchema = mongoose.Schema({
-  creator: String,
-  quizzes: String
+  email: String,
+  globalScore: {type: Number, default: 0},
+  attempts: [
+    {
+      quizName: String,
+      score: Number
+    }
+  ]
 });
 
 var User = mongoose.model('User', userSchema);
 
-var quizSchema = mongoose.Schema({
-  email: String,
-  globalScore: Number, // Will this need to auto-increment?
-  attempt: String
-});
-
-var Quiz = mongoose.model('Quiz', quizSchema);
-
-var save = function(model, info) {
-  var newEntry = new database(info);
-  newEntry.save(function(err, savedEntry) {
+// Save user data
+var saveUser = function(info, callback) {
+  var newUser = new User(info);
+  newUser.save(function(err, savedEntry) {
     if (err) {
       callback(err, null);
     } else {
@@ -37,14 +36,67 @@ var save = function(model, info) {
   })
 };
 
-var returnQuiz = function() {
+var quizSchema = mongoose.Schema({
+  creator: String,
+  quizzes: [
+    {
+      quizName: String,
+      questions: [
+        {
+          text: String,
+          options: [String],
+          correctAnswer: String,
+        }
+      ],
+    }
+  ]
+});
+
+var Quiz = mongoose.model('Quiz', quizSchema);
+
+// Save quiz data
+var saveQuiz = function(info, callback) {
+  var newQuiz = new Quiz(info);
+  newQuiz.save(function(err, savedEntry) {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, savedEntry);
+    }
+  })
+};
+
+// Find by quiz name and return object with with quiz name and quiz questions
+var returnQuiz = function(query) {
+  Quiz.find({'quizzes.quizName': query}, function(err, results) {
+    if (err) {
+      console.log(err, null);
+    } else {
+      console.log(null, results);
+    }
+  })
+};
+
+// Update quiz score and increment global score
+var incrementScore = function(points) {
 
 };
 
-var incrementScore = function() {
-// increment
+// Returns leaderboard (an array with objects) with ten highest scores in descending order
+var leaderboardScore = function() {
+  User.find({}, function(err, results){
+    if (err) {
+      console.log(err, null);
+    } else {
+      console.log(null, results);
+    }
+  })
+  .sort('-globalScore')
+  .limit(10);
 };
 
-module.exports.save = save;
+module.exports.saveUser = saveUser;
+module.exports.saveQuiz = saveQuiz;
 module.exports.returnQuiz = returnQuiz;
 module.exports.incrementScore = incrementScore;
+module.exports.leaderboardScore = leaderboardScore;
