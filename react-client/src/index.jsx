@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
+import Dinosaur from '../../database-mongo/exampleData.js'
 import QuizListComponent from './components/Home/QuizListComponent.jsx'
+
 
 class App extends React.Component {
   constructor(props) {
@@ -13,24 +15,26 @@ class App extends React.Component {
     this.viewUpdate = this.viewUpdate.bind(this)
   }
 
-  componentDidMount() {
-  }
-
+  //change the view of our website
   viewUpdate(newView) {
     this.setState({
       view: newView
     })
   }
 
+  //load different components depending on the website
   currentPage() {
-    const {state} = this.state.view;
-    if (state === 'home') {
+    if (this.state.view === 'home') {
+      console.log('hello')
       return (
-        <QuizListComponent />
-      );
+        <QuizListComponent 
+          quizData={Dinosaur}
+        />
+      )
     }
   }
 
+  //render our nav bar
   render () {
     return (
       <div className="nav">
