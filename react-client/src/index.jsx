@@ -16,8 +16,19 @@ class App extends React.Component {
   componentDidMount() {
   }
 
-  viewUpdate(state) {
-    this.setState({ view: state });
+  viewUpdate(newView) {
+    this.setState({
+      view: newView
+    }) 
+  }
+
+  currentPage() {
+    const {state} = this.state.view;
+    if (state === 'home') {
+      return (
+        <QuizListComponent />
+      );
+    }
   }
 
   render () {
@@ -25,19 +36,24 @@ class App extends React.Component {
       <div className="nav">
         <ul>
           <li className="logo">Quiz o' Saurus</li>
-          <li className="nav-ui"
-            onClick={this.viewUpdate.bind('home')}>
-            <a>Home</a>
-          </li>
-          <li className="nav-ui"
-            onClick={this.viewUpdate.bind('leaderboard')}>
-            <a>Leaderboard</a>
-          </li>
-          <li className="nav-ui" 
-            onClick={this.viewUpdate.bind('result')}>
-            <a>Result</a>
-          </li>
+            <li className="nav-ui"
+              onClick={() => {this.viewUpdate('home')}}>
+              <a>Home</a>
+            </li>
+            <li className="nav-ui"
+              onClick={() => {this.viewUpdate('leaderboard')}}>
+              <a>Leaderboard</a>
+            </li>
+            <li className="nav-ui" 
+              onClick={() => {this.viewUpdate('result')}}>
+              <a>Result</a>
+            </li>
         </ul>
+        <div>
+          <div className="pageRender">
+            {this.currentPage()}
+          </div>
+        </div>
       </div>
     )
   }
