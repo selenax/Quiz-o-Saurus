@@ -78,8 +78,23 @@ var returnQuiz = function(query) {
 };
 
 // Update quiz score and increment global score
-var incrementScore = function(points) {
-
+var incrementScore = function(email, quizName, points) {
+  User.findOneAndUpdate({
+    'email': email}, {
+    $inc: {'globalScore': points},
+    $push: {
+      'attempts': {
+        'quizName': quizName,
+        'score': points
+      }
+    }
+  }, function(err, updatedEntry) {
+    if (err) {
+      console.log(err, null);
+    } else {
+      console.log(null, updatedEntry);
+    }
+  })
 };
 
 // Returns leaderboard (an array with objects) with ten highest scores in descending order

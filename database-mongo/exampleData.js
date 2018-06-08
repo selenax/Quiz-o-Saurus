@@ -89,7 +89,7 @@ var insertData = function() {
   //   }
   // });
 
-  database.returnQuiz('dino');
+  database.incrementScore('a@gmail.com', 'dinosaur', 10000);
 };
 
 insertData();
