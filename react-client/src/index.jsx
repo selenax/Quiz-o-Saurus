@@ -5,8 +5,9 @@ import $ from "jquery";
 import QuizListComponent from "./components/Home/QuizListComponent.jsx";
 import Leaderboard from "./components/LeaderboardComponents/Leaderboard.jsx";
 
-import Dinosauar from "../../database-mongo/exampleData.js";
+import Dinosaur from "../../database-mongo/exampleData.js";
 import UserData from "./UserExampleData";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -27,27 +28,14 @@ class App extends React.Component {
   currentPage() {
     if (this.state.view === "home") {
       console.log("hello");
-      return <QuizListComponent quizData={Dinosauar} />;
+      return <QuizListComponent quizData={Dinosaur} />;
     } else if (this.state.view === "leaderboard") {
       return <Leaderboard data={UserData} />;
     }
   }
 
-  render() {
-
-    if (this.state.view === 'home') {
-      console.log('hello')
-      return (
-        <QuizListComponent 
-          quizData={Dinosaur}
-        />
-      )
-    }
-  }
-
   //render our nav bar
   render () {
-
     return (
       <div className="nav">
         <ul>
