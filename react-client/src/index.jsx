@@ -5,7 +5,7 @@ import $ from "jquery";
 import Dinosaur from "../../database-mongo/exampleData.js";
 import QuizListComponent from "./components/Home/QuizListComponent.jsx";
 import Leaderboard from "./components/LeaderboardComponents/Leaderboard.jsx";
-import QuizSelected from "./components/QuizTaking/QuizSelected.jsx";
+import QuizSelected from "./components/QuizTaking/QuizSelected";
 
 import UserData from "./UserExampleData";
 
@@ -13,7 +13,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: "home",
+      //PEWPEW
+      view: "quizList",
       quizzes: [],
       currentQuiz: '',
     };
@@ -61,7 +62,7 @@ class App extends React.Component {
       console.log(Dinosaur.quizzes)
       return <QuizListComponent quizData={Dinosaur.quizzes} clickHandler={this.quizTaking.bind(this)} />;
     } else if (this.state.view === "quizMode") {
-      return <QuizSelected />;
+      return <QuizSelected questionsData={Dinosaur.questions}/>;
     } else if (this.state.view === "leaderboard") {
       return <Leaderboard data={UserData} />;
     }
@@ -88,14 +89,6 @@ class App extends React.Component {
             }}
           >
             <a>Leaderboard</a>
-          </li>
-          <li
-            className="nav-ui"
-            onClick={() => {
-              this.viewUpdate("result");
-            }}
-          >
-            <a>Result</a>
           </li>
         </ul>
         <div>
