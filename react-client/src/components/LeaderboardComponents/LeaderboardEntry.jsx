@@ -4,6 +4,7 @@ import React from 'react';
 //should display each user's username, score 
 const LeaderboardEntry = ({user}) => {
  return(
+
    <div>
      <ul className='leaderboard-list-item'>
      <img src={"http://svgcuttingfiles.com/images/PP-ChibiBabyDInos.png"} className="leaderboard-list-item-image"/>

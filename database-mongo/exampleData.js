@@ -1,4 +1,4 @@
-// let database = require('./index.js');
+let database = require('./index.js');
 
 const userData = {
   firstName: '',
@@ -75,7 +75,7 @@ const quizData = {
   ]
 };
 
-// let insertData = function() {
+let insertData = function() {
 //   database.saveUser(userData, function(err, savedUser) {
 //     if (err) {
 //       console.log(err, null);
@@ -92,10 +92,10 @@ const quizData = {
 //     }
 //   });
 
-//   database.incrementScore('ainslie@gmail.com', 'dinosaur', 200);
-// };
+  database.incrementScore('ainslie@gmail.com', 'math', 99999);
+};
 
-//insertData();
+insertData();
 
 // export default userData;
-export default quizData;
+// export default quizData;

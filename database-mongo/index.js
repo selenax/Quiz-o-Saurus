@@ -81,31 +81,33 @@ var returnQuiz = function(query, callback) {
 };
 
 // Update quiz score and increment global score
-var incrementScore = function(email, quizName, points) {
-  User.find({'attempts.quizName': quizName}, function (err, result) {
+var incrementScore = function(email, quizName, points, callback) {
+  User.find({'email': email, 'attempts.quizName': quizName}, function (err, result) {
     if (err) {
-      console.log(err, null);
-    } else if (result === []) {
-      User.findOneAndUpdate({
-        'email': email}, {
-        $inc: {'globalScore': points},
+      callback(err, null);
+    } else if (result.length === 0) {
+      User.findOneAndUpdate(
+        {'email': email},
+        {$inc: {'globalScore': points},
         $push: {
           'attempts': {
             'quizName': quizName,
             'score': points
           }
         }
-      }, function(err, updatedEntry) {
+      },
+      {new: true},
+      function(err, updatedEntry) {
         if (err) {
-          console.log(err, null);
+          callback(err, null);
         } else {
-          console.log(null, updatedEntry);
+          callback(null, updatedEntry);
         }
       })
+    } else {
+      callback(null, result);
     }
-  })
-
-
+  });
 };
 
 // Returns leaderboard (an array with objects) with ten highest scores in descending order
