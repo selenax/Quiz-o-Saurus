@@ -51,14 +51,17 @@ app.get('/auth/google', passport.authenticate('google', {
     scope: ['https://www.googleapis.com/auth/userinfo.profile']
 }));
 
-//set the cookie session when user is logged in
+//after google verifyes from func line 50, this func gets invoked immediately
 app.get('/auth/google/callback',
   passport.authenticate('google', {failureRedirect: '/'}),
   (req, res) => {
-    req.session.token = req.user.token;
+    req.session.token = req.user.token; //cookie?
     res.redirect('/'); //takes client to '/'
   }
 );
+
+//find a way to let front end know that user is logged in currently (or if current cookie exists)
+//find out how to create expiry session
 
 //google log out
 app.get('/logout', (req, res) => {
@@ -71,6 +74,7 @@ app.get('/logout', (req, res) => {
 
 //maybe have to do post when client creates an account
   //store email to database
+  //extract
 app.post('/endpoint-for-user-change-l8r', function(req, res) {
   //???
 });
@@ -83,40 +87,55 @@ app.post('/endpoint-for-user-change-l8r', function(req, res) {
 //overall, there are two get requests
 
 //get request for user info (includes email, global score, and score for each attempted quiz)-  this is for rendering scores on leaderboard
-app.get('/scores', function(req, res) {
+app.get('/home/leaderboard', function(req, res) {
   //fetch info from database
   data.leaderboardScore(function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
-      res.send('getting user info...');
+      console.log('get request is going through yay!')
+      res.send(data);
     }
   });
 });
 
 //get request for quizzes - this is for rendering quiz under a SPECIFIC TOPIC
-app.get('/quizzes', function(req, res) {
+app.get('/home/quizzes', function(req, res) {
   //fetch info from database (.retrieve name may vary l9r)
-  data.retrieve(function(err, data) {
+  data.returnQuiz(function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
-      res.send('fetching quiz...')
+      res.send('fetching quiz...');
       // res.json(data);
     }
   });
 });
 
-//post req to update tally at end of quiz for attempted quiz, when quiz is taken
-app.post('/scores', function(req, res) {
-  //we have info of username, quiz name, and score
-  var quizComplete = req.body;
+//patch req which is a single score w that quiz name
+app.patch('/home/:email', function(req, res) {
+  console.log('oi');
 
-  //save info to database (.save name may vary l8r)
-  data.save(quizComplete);
+  //create variable to extract id, quiz score, and quiz name
+  var email = req.params.email; //middleware?
+
+
+  //----harcoded example----//
+  var quizName = 'fashion'
+  var points = 9
+  //----harcoded example end----//
+
+  //use incrementScore func from db
+    //this saves local scores in user info as well as increasing the global score on leaderboard info
+  data.incrementScore(email, quizName, points, function(err, data) {
+    if(err) {
+      console.log('boo hoo, didt work');
+    } else {
+      console.log('successfully saved scores!');
+    }
+  });
 });
 
 app.listen(port, () => {
   console.log(`YAY listening on port ${port}!!`);
 });
-
