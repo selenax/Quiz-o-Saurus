@@ -8,7 +8,6 @@ import Leaderboard from '../LeaderboardComponents/Leaderboard.jsx';
 - should fetch score
 - 
 - 
-
 */
 
 class QuizScore extends React.Component {

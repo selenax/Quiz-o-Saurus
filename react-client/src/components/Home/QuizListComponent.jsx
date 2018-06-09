@@ -1,16 +1,15 @@
 import React from 'react';
+import QuizListEntry from './QuizListEntry.jsx';
 
 const QuizListComponent = (props) => {
+  const quizEntries = props.quizData.map ((quiz, id) => {
+    return <QuizListEntry quiz={quiz} key={id} clickHandler={props.clickHandler} />
+  })
+
   return (
     <div className="quiz-list-container">
       <ul>
-        { props.quizData.quizzes.map ( (quiz, id) => 
-          <div className="quiz-list-display" key={id}>
-            <img src={quiz.imgUrl} className="quiz-list-image"/>
-            <div className="quiz-list-creator">{quiz.creator}</div>
-            <div className="quiz-list-title">{quiz.quizName}</div>
-          </div>
-        )}
+        {quizEntries}
         </ul>
     </div>
   );
