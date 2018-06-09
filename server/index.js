@@ -19,16 +19,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 auth(passport);
 app.use(passport.initialize());
-//keep key secret so cookie don't get stoled by 3rd parties
-app.use(cookieSession({name: 'session', keys: ['810']}));
-app.use(cookieParser());
 
 let port = process.env.PORT || 3000;
-//google api console get req
-  //client id: 742940875432-d88m20e2l2110l3m3jd24ag46v2a3pbm.apps.googleusercontent.com
-  //callback: http://localhost:3000/auth/google/callback
-  //client secret: LfaK1hn8P-3KDjsIAdv9tWQf
-  //then do post req when user confirms google authentication
 
 //------------google oauth------------//
 //redirects client to google login page
@@ -51,14 +43,25 @@ app.get('/auth/google', passport.authenticate('google', {
     scope: ['https://www.googleapis.com/auth/userinfo.profile']
 }));
 
-//set the cookie session when user is logged in
+//keep key secret so cookie can't b stolen by 3rd parties
+app.use(cookieSession({name: 'session', keys: ['810']}));
+app.use(cookieParser());
+
+//after google verifyes from func line 50, this func gets invoked immediately
 app.get('/auth/google/callback',
   passport.authenticate('google', {failureRedirect: '/'}),
   (req, res) => {
-    req.session.token = req.user.token;
-    res.redirect('/'); //takes client to '/'
+    req.session.token = req.user.token; //cookie?
+    res.redirect('/'); //takes client to '/' (homepage)
+    console.log(req.user.profile)
   }
 );
+
+//post req to database to create new user info
+app.post('/endpoint-for-user-change-l8r', function(req, res) {
+  //create new user info if user doesn't exist in database
+  //find by email, if doesn't exist, create schema
+});
 
 //google log out
 app.get('/logout', (req, res) => {
@@ -69,48 +72,60 @@ app.get('/logout', (req, res) => {
 //------------google oauth end------------//
 
 
-//maybe have to do post when client creates an account
-  //store email to database
-app.post('/endpoint-for-user-change-l8r', function(req, res) {
-  //???
-});
+//list of endpoints
+//user
 
-//overall, there are two get requests, note** need list of endpoints
-//get request for user info (includes email, global score, and score for each attempted quiz)
-app.get('/endpoint-for-user-change-l8r', function(req, res) {
-  //fetch info from database (.retrieve name may vary l9r)
-  data.retrieve(function(err, data) {
+//overall, there are two get requests
+
+//get request for user info (includes email, global score, and score for each attempted quiz)-  this is for rendering scores on leaderboard
+app.get('/home/leaderboard', function(req, res) {
+  //fetch info from database
+  data.leaderboardScore(function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
-      res.send('getting user info...');
+      console.log('get request is going through yay!')
+      res.send(data);
     }
   });
 });
 
-//get request for quizzes
-app.get('/endpoint-for-quiz-change-l8r', function(req, res) {
+//get request for quizzes - this is for rendering quiz under a SPECIFIC TOPIC
+app.get('/home/quizzes', function(req, res) {
   //fetch info from database (.retrieve name may vary l9r)
-  data.retrieve(function(err, data) {
+  data.returnQuiz(function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
-      res.send('fetching quiz...')
+      res.send('fetching quiz...');
       // res.json(data);
     }
   });
 });
 
-//post req to update tally at end of quiz for attempted quiz
-app.post('/endpoint-for-user-change-l8r', function(req, res) {
-  //we have info of username, quiz name, and score
-  var quizComplete = req.body;
+//patch req which is a single score w that quiz name
+app.patch('/home/:email', function(req, res) {
+  console.log('oi');
 
-  //save info to database (.save name may vary l8r)
-  data.save(quizComplete);
+  //create variable to extract id/email, quiz score, and quiz name
+  var email = req.params.email; //middleware?
+
+  //----harcoded example----//
+  var quizName = 'fashion'
+  var points = 9
+  //----harcoded example end----//
+
+  //use incrementScore func from db
+    //this saves local scores in user info as well as increasing the global score on leaderboard info
+  data.incrementScore(email, quizName, points, function(err, data) {
+    if(err) {
+      console.log('boo hoo, not working');
+    } else {
+      console.log('successfully saved scores!');
+    }
+  });
 });
 
 app.listen(port, () => {
-  console.log(`YAY listening on port ${port}`);
+  console.log(`YAY listening on port ${port}!!`);
 });
-
