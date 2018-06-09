@@ -1,21 +1,17 @@
 import React from 'react';
 
-
-const QuizSelectedEntry = ({item, handleClick}) => {
+const QuizSelectedEntry = (props) => {
   return (
-    <div>
-      <li className="quiz-selected-item">
-        <div className="quiz-selected-item-question" onClick={() => handleClick(item)}>{item.question}</div>
-        <img src={item.imageUrl} onClick={() => handleClick(item)} className="quiz-selected-item-image"/>
-        <div className="quiz-selected-item-options">
-            {item.body.map(option => (
-                <div className="quiz-option" onClick={() => handleClick(option)}>{item.option}.</div>
-            )
-            )}
-        </div>
-      </li>
+    <div className="quiz-question-entry">
+      {props.questions}
+      <div className="quiz-answer-entry">
+        <button> {props.selection[0]} </button>
+        <button> {props.selection[1]} </button>
+        <button> {props.selection[2]} </button>
+        <button> {props.selection[3]} </button>
+      </div>
     </div>
-  );
+  )
 };
 
 export default QuizSelectedEntry;
