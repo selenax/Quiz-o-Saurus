@@ -4,6 +4,7 @@ import $ from "jquery";
 
 import QuizListComponent from "./components/Home/QuizListComponent.jsx";
 import Leaderboard from "./components/LeaderboardComponents/Leaderboard.jsx";
+import QuizSelected from "./components/QuizTaking/QuizSelected.jsx";
 
 import Dinosaur from "../../database-mongo/exampleData.js";
 import UserData from "./UserExampleData";
@@ -28,7 +29,7 @@ class App extends React.Component {
   //ajax fetch our list of quizzes from the server
   ajaxQuizFetch(cb) {
     $.ajax({
-      url: '/data/quizzes',
+      url: '/home/quizzes',
       method: 'GET',
       success: (data) => {
         cb(data);
@@ -47,8 +48,9 @@ class App extends React.Component {
   //load different components depending on the website
   currentPage() {
     if (this.state.view === "home") {
-      console.log("hello");
       return <QuizListComponent quizData={Dinosaur} />;
+    } else if (this.state.view === "quizMode") {
+      return <QuizSelected />;
     } else if (this.state.view === "leaderboard") {
       return <Leaderboard data={UserData} />;
     }
