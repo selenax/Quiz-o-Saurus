@@ -19,16 +19,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 auth(passport);
 app.use(passport.initialize());
-//keep key secret so cookie don't get stoled by 3rd parties
-app.use(cookieSession({name: 'session', keys: ['810']}));
-app.use(cookieParser());
 
 let port = process.env.PORT || 3000;
-//google api console get req
-  //client id: 742940875432-d88m20e2l2110l3m3jd24ag46v2a3pbm.apps.googleusercontent.com
-  //callback: http://localhost:3000/auth/google/callback
-  //client secret: LfaK1hn8P-3KDjsIAdv9tWQf
-  //then do post req when user confirms google authentication
 
 //------------google oauth------------//
 //redirects client to google login page
@@ -51,17 +43,25 @@ app.get('/auth/google', passport.authenticate('google', {
     scope: ['https://www.googleapis.com/auth/userinfo.profile']
 }));
 
+//keep key secret so cookie can't b stolen by 3rd parties
+app.use(cookieSession({name: 'session', keys: ['810']}));
+app.use(cookieParser());
+
 //after google verifyes from func line 50, this func gets invoked immediately
 app.get('/auth/google/callback',
   passport.authenticate('google', {failureRedirect: '/'}),
   (req, res) => {
     req.session.token = req.user.token; //cookie?
-    res.redirect('/'); //takes client to '/'
+    res.redirect('/'); //takes client to '/' (homepage)
+    console.log(req.user.profile)
   }
 );
 
-//find a way to let front end know that user is logged in currently (or if current cookie exists)
-//find out how to create expiry session
+//post req to database to create new user info
+app.post('/endpoint-for-user-change-l8r', function(req, res) {
+  //create new user info if user doesn't exist in database
+  //find by email, if doesn't exist, create schema
+});
 
 //google log out
 app.get('/logout', (req, res) => {
@@ -71,13 +71,6 @@ app.get('/logout', (req, res) => {
 });
 //------------google oauth end------------//
 
-
-//maybe have to do post when client creates an account
-  //store email to database
-  //extract
-app.post('/endpoint-for-user-change-l8r', function(req, res) {
-  //???
-});
 
 
 
@@ -116,9 +109,8 @@ app.get('/home/quizzes', function(req, res) {
 app.patch('/home/:email', function(req, res) {
   console.log('oi');
 
-  //create variable to extract id, quiz score, and quiz name
+  //create variable to extract id/email, quiz score, and quiz name
   var email = req.params.email; //middleware?
-
 
   //----harcoded example----//
   var quizName = 'fashion'
@@ -129,7 +121,7 @@ app.patch('/home/:email', function(req, res) {
     //this saves local scores in user info as well as increasing the global score on leaderboard info
   data.incrementScore(email, quizName, points, function(err, data) {
     if(err) {
-      console.log('boo hoo, didt work');
+      console.log('boo hoo, not working');
     } else {
       console.log('successfully saved scores!');
     }
