@@ -6,7 +6,7 @@ const app = express();
 
 //import google oauth passport package
 const passport = require('passport'),
-      auth = require('./auth.js');
+      auth = require('./auth.js'); 
 
 //import cookie package
 const cookieParser = require('cookie-parser'),
