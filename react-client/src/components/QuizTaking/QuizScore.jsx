@@ -42,11 +42,10 @@ UpdateScore(userId) {
 // debounce  _.debounce(function, wait, [immediate])
 render() {
   return (
-
-    <div>
-      <LeaderBoard data={data} />
-    </div>
+    <button className="complete-quiz" onClick={() => this.updateScore()} >
+      </button>
   )
+
   }
 
 

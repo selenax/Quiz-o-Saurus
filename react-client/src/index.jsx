@@ -5,16 +5,16 @@ import $ from "jquery";
 import Dinosaur from "../../database-mongo/exampleData.js";
 import QuizListComponent from "./components/Home/QuizListComponent.jsx";
 import Leaderboard from "./components/LeaderboardComponents/Leaderboard.jsx";
+
+import Root from "./components/Root/Root.jsx";
 import QuizSelected from "./components/QuizTaking/QuizSelected.jsx";
-
-
 import UserData from "./UserExampleData";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: "home",
+      view: "root",
       quizzes: [],
       currentQuiz: '',
     };
@@ -57,8 +57,11 @@ class App extends React.Component {
   }
 
   //load different components depending on the website
-  currentPage() {
-    if (this.state.view === "home") {
+
+ currentPage() {
+    if(this.state.view === "root") {
+      return <Root /> }
+    else if (this.state.view === "home") {
       return <QuizListComponent quizData={Dinosaur.quizzes} clickHandler={this.quizTaking.bind(this)} />;
     } else if (this.state.view === "quizMode") {
       return <QuizSelected questionsData={Dinosaur.quizzes}/>;
