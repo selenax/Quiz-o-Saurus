@@ -1,13 +1,9 @@
-// import React from 'react';
+import React from 'react';
 
-// const QuizSelectedEntry = (props) => {
-//   return (
-//     <li className="quiz-list-display" onClick={() => {clicker(props.quiz)}}>
-//       <img src={props.quiz.imgUrl} className="quiz-list-image"/>
-//       <div className="quiz-list-creator">{props.quiz.creator}</div>
-//       <div className="quiz-list-title">{props.quiz.quizName}</div>
-//   </li>
-//   )
-// };
+const QuizSelectedEntry = (props) => {
+  return (
+    <li className="quiz-question-entry">{props.questions}</li>
+  )
+};
 
-// export default QuizSelectedEntry;
+export default QuizSelectedEntry;
