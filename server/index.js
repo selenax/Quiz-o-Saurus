@@ -4,9 +4,9 @@ const bodyParser = require('body-parser'); //parses incoming req
 const data = require('../database-mongo');
 const app = express();
 
-//import google oauth passport package
+//import google oauth passport package 
 const passport = require('passport'),
-      auth = require('./auth.js');
+      auth = require('./auth.js'); 
 
 //import cookie package
 const cookieParser = require('cookie-parser'),
@@ -54,9 +54,12 @@ app.get('/auth/google/callback',
     req.session.token = req.user.token; //cookie?
     res.redirect('/'); //takes client to '/' (homepage)
     console.log(req.user.profile)
+    //if user doesn't exist in database (export func from db)
+      //pass saveUser func w google info
   }
 );
 
+//might not need this save user in google callback ^
 //post req to database to create new user info
 app.post('/endpoint-for-user-change-l8r', function(req, res) {
   //create new user info if user doesn't exist in database
@@ -71,11 +74,6 @@ app.get('/logout', (req, res) => {
 });
 //------------google oauth end------------//
 
-
-//list of endpoints
-//user
-
-//overall, there are two get requests
 
 //get request for user info (includes email, global score, and score for each attempted quiz)-  this is for rendering scores on leaderboard
 app.get('/home/leaderboard', function(req, res) {
@@ -104,7 +102,7 @@ app.get('/home/quizzes', function(req, res) {
   });
 });
 
-//NOTE MAKE SURE TO CHANGE :EMAIL TO :ID
+//NOTE MAKE SURE TO CHANGE :EMAIL TO :GOOGLEID
 //patch req which is a single score w that quiz name
 app.patch('/home/:email', function(req, res) {
   console.log('oi');
