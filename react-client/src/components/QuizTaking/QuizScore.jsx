@@ -8,7 +8,6 @@ import Leaderboard from '../LeaderboardComponents/Leaderboard.jsx';
 - should fetch score
 - 
 - 
-
 */
 
 class QuizScore extends React.Component {
@@ -43,11 +42,10 @@ UpdateScore(userId) {
 // debounce  _.debounce(function, wait, [immediate])
 render() {
   return (
-
-    <div>
-      <LeaderBoard data={data} />
-    </div>
+    <button className="complete-quiz" onClick={() => this.updateScore()} >
+      </button>
   )
+
   }
 
 

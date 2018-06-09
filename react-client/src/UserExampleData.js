@@ -1,10 +1,10 @@
 
 const UserData = [{
   id: 34345353,
-  firstName: 'Mike',
+  firstName: 'Yona',
   lastName: 'Pizza',
   email: 'c@gmail.com',
-  globalScore: 20,
+  globalScore: 220,
   attempts: [
     {
       quizName: 'dinosaur',
@@ -14,10 +14,23 @@ const UserData = [{
 },
 {
   id: 8939202,
-  firstName: 'Rebecca',
+  firstName: 'Ainslie',
   lastName: 'Doe',
   email: 'blah@gmail.com',
-  globalScore: 300,
+  globalScore: 200,
+  attempts: [
+    {
+      quizName: 'dinosaur',
+      score: 0
+    }
+  ]
+},
+{
+  id: 75392302,
+  firstName: 'Kenny',
+  lastName: 'Doe',
+  email: 'blah@gmail.com',
+  globalScore: -100,
   attempts: [
     {
       quizName: 'dinosaur',
@@ -30,4 +43,3 @@ const UserData = [{
 
 
 export default UserData;
-// export default quizData;
