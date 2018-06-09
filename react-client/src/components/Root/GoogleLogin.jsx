@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, Icon, Row, Input } from "react-materialize";
 import axios from "axios";
 import { GoogleLogin } from "react-google-login";
+import token from "../../configs"
 
 class GoogleLogin extends React.Component {
   constructor() {
