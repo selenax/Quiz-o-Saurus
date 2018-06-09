@@ -1,7 +1,6 @@
 import React from 'react';
 
 const QuizSelectedEntry = (props) => {
-
   return (
     <div className="quiz-question-entry">
       {props.questions}
