@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import $ from "jquery";
 
+import Dinosaur from "../../database-mongo/exampleData.js";
 import QuizListComponent from "./components/Home/QuizListComponent.jsx";
 import Leaderboard from "./components/LeaderboardComponents/Leaderboard.jsx";
 import QuizSelected from "./components/QuizTaking/QuizSelected.jsx";
 
-import Dinosaur from "../../database-mongo/exampleData.js";
 import UserData from "./UserExampleData";
 
 class App extends React.Component {
@@ -14,7 +14,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       view: "home",
-      quizzes: []
+      quizzes: [],
+      currentQuiz: '',
     };
     this.viewUpdate = this.viewUpdate.bind(this);
   }
@@ -43,12 +44,22 @@ class App extends React.Component {
   //set the data of our quizzes from the server
   quizFetch() {
     this.ajaxQuizFetch((data) => this.setState({quizzes: data}))
-  } 
+  }
+
+  //send our user to the quiz taking page
+  quizTaking(quiz) {
+    console.log(quiz)
+    this.setState({
+      currentQuiz: quiz,
+      // view: 'quizMode'
+    })
+  }
 
   //load different components depending on the website
   currentPage() {
     if (this.state.view === "home") {
-      return <QuizListComponent quizData={Dinosaur} />;
+      console.log(Dinosaur.quizzes)
+      return <QuizListComponent quizData={Dinosaur.quizzes} clickHandler={this.quizTaking.bind(this)} />;
     } else if (this.state.view === "quizMode") {
       return <QuizSelected />;
     } else if (this.state.view === "leaderboard") {
