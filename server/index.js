@@ -82,6 +82,7 @@ app.get('/home/leaderboard', function(req, res) {
   //fetch info from database
   data.leaderboardScore(function(err, data) {
     if(err) {
+      console.log('not working')
       res.sendStatus(500);
     } else {
       console.log('get request is going through yay!')
@@ -92,17 +93,18 @@ app.get('/home/leaderboard', function(req, res) {
 
 //get request for quizzes - this is for rendering quiz under a SPECIFIC TOPIC
 app.get('/home/quizzes', function(req, res) {
-  //fetch info from database (.retrieve name may vary l9r)
-  data.returnQuiz(function(err, data) {
+  //hardcoded first argument in returnQuiz (edit l8r if the name actualy shows in req)
+  data.returnQuiz('dinosaur', function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
-      res.send('fetching quiz...');
-      // res.json(data);
+      console.log('quiz information is fetched!');
+      res.send(data);
     }
   });
 });
 
+//NOTE MAKE SURE TO CHANGE :EMAIL TO :ID
 //patch req which is a single score w that quiz name
 app.patch('/home/:email', function(req, res) {
   console.log('oi');
