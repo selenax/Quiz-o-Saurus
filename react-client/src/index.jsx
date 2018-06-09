@@ -15,7 +15,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       //PEWPEW
-      view: "quizMode",
+      view: "home",
       quizzes: [],
       currentQuiz: '',
     };
@@ -53,7 +53,7 @@ class App extends React.Component {
     // console.log(quiz)
     this.setState({
       currentQuiz: quiz,
-      // view: 'quizMode'
+      view: 'quizMode'
     })
   }
 
@@ -89,14 +89,6 @@ class App extends React.Component {
             }}
           >
             <a>Leaderboard</a>
-          </li>
-          <li
-            className="nav-ui"
-            onClick={() => {
-              this.viewUpdate("quizMode");
-            }}
-          >
-            <a>Quiz Mode</a>
           </li>
         </ul>
         <div>
