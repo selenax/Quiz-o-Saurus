@@ -72,8 +72,6 @@ app.get('/logout', (req, res) => {
 //------------google oauth end------------//
 
 
-
-
 //list of endpoints
 //user
 
