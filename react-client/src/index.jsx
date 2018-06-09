@@ -29,11 +29,6 @@ class App extends React.Component {
     });
   }
 
-  //to delete
-  componentDidMount(){
-    this.quizTaking(Dinosaur);
-  }
-
   //ajax fetch our list of quizzes from the server
   ajaxQuizFetch(cb) {
     $.ajax({
@@ -94,6 +89,14 @@ class App extends React.Component {
             }}
           >
             <a>Leaderboard</a>
+          </li>
+          <li
+            className="nav-ui"
+            onClick={() => {
+              this.viewUpdate("quizMode");
+            }}
+          >
+            <a>Quiz Mode</a>
           </li>
         </ul>
         <div>
