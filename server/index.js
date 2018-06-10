@@ -115,7 +115,7 @@ app.get('/home/quizzes', function(req, res) {
 
 //NOTE MAKE SURE TO CHANGE :EMAIL TO :GOOGLEID
 //patch req which is a single score w that quiz name
-app.patch('/home/:email', function(req, res) {
+app.patch('/home/:googleId', function(req, res) {
   console.log('oi');
 
   //create variable to extract id/email, quiz score, and quiz name
