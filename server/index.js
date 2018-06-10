@@ -51,6 +51,7 @@ app.use(cookieParser());
 app.get('/auth/google/callback',
   passport.authenticate('google', {failureRedirect: '/'}),
   (req, res) => {
+    console.log('redirect')
     req.session.token = req.user.token; //cookie?
     res.redirect('/'); //takes client to '/' (homepage)
     console.log(req.user.profile)

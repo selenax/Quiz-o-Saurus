@@ -16,7 +16,7 @@ class App extends React.Component {
     this.state = {
       view: "root",
       quizzes: [],
-      currentQuiz: '',
+      currentQuiz: ''
     };
     this.viewUpdate = this.viewUpdate.bind(this);
   }
