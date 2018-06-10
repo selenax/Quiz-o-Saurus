@@ -16,19 +16,11 @@ constructor(props) {
   super(props)
   this.state = {
     score: 0,
-    leaderboard: []
+
   }
 }
 
-//request an array of top 10 score user profile  
-fetchScore() {
-  axios.get("/home/leaderboard").then(({ data: data }) => {
-    console.log("success here's the top 10!", data);
-    this.setState({
-      leaderboard: data
-    });
-  });
-}
+
 //receive user's updated total score
 UpdateScore(userId) {
   axio.patch(`/home/${userId}`).then(({updated : updated}) => {
