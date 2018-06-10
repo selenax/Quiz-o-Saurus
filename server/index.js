@@ -59,8 +59,7 @@ app.get('/auth/google/callback',
     //check if user exists in database
     data.confirmUser(googleId, function(err, data) {
       if(err) { //if user doesn't exist in database
-        console.log(`user doesn't exist, let's save it!`);
-      } else if (!data.length) {
+        console.log(`user isn't found, so save it 2 database`);
         //save first time user into database
         data.saveUser(googleId, displayName, function(err, data) {
           if(err) {
@@ -69,12 +68,19 @@ app.get('/auth/google/callback',
             console.log('new user is saved!!');
           }
         });
-      } else { //if user already exists in database
-        console.log('it already hereeeee!!!');
+      } else {
+        console.log('it hereeeee!!!');
       }
     });
   }
 );
+
+//might not need this save user in google callback ^
+//post req to database to create new user info
+app.post('/endpoint-for-user-change-l8r', function(req, res) {
+  //create new user info if user doesn't exist in database
+  //find by email, if doesn't exist, create schema
+});
 
 //google log out
 app.get('/logout', (req, res) => {
@@ -106,6 +112,7 @@ app.get('/home/quizzes', function(req, res) {
     if(err) {
       res.sendStatus(500);
     } else {
+      console.log('quiz information is fetched!');
       res.send(data);
     }
   });
