@@ -15,11 +15,15 @@ const QuizSelected = (props) => {
     9: false
   }
 
-  //patch to the user googleId
-  const updateUserScore = function(googleId) {
+  //patch to the user score googleId
+  const updateUserScore = function(score) {
     $.ajax({
-      url: `home/${googleId}`,
-      method: "PATCH"
+      url: 'home/111601961513247914448',
+      method: "PATCH",
+      data: {
+        quizName: 'dinosaur',
+        score: score
+      }
     })
   }
 
@@ -31,7 +35,7 @@ const QuizSelected = (props) => {
         score += 1;
       }
     }
-    console.log(score)
+    updateUserScore(score)
   }
 
   const questionsEntries = props.questionsData[0].questions.map ((question, id) => {

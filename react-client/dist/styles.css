@@ -43,22 +43,18 @@ li {
 
 .nav {
   background-color: #6495ED;
-  height: 40px;
-  margin: 0;
-  padding: 0;
-  vertical-align: baseline;
+  height: 60px;
   font-family: 'Lobster', Georgia, Times, serif;
+  vertical-align: middle;
   font-size: 25px;
   line-height: 40px;
 }
 
 ul {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
-  padding-left:30px;
+  vertical-align: middle;
+  padding-left:10px;
   overflow: hidden;
-  background-color: #6495ED;
 }
 
 /*leaderboard*/
@@ -68,13 +64,11 @@ ul {
 
 /*leaderboard entry*/
 .leaderboard-list-item {
-  /* min-height: 10px; */
   margin: 50px;
   list-style: none;
   border: 1px solid #77777769;
   background-color: #fdfdfd;
   border-radius: 4px;
-  /* padding: 10px 20px 0px 20px; */
   box-shadow: 0 0 1em darkorange;
 }
 

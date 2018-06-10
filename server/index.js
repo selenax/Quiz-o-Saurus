@@ -119,11 +119,11 @@ app.patch('/home/:googleId', function(req, res) {
   console.log('oi');
 
   //googleId is currently set to email (we have to change this because email doesn't exist in req info)
-  var googleId = '04l.yona@gmail.com'; //middleware?
+  var googleId = req.params.googleId; //middleware?
 
-  //----harcoded example----//
-  var quizName = 'fashion';
-  var points = 9;
+  //----coded example----//
+  var quizName = req.body.quizName;
+  var points = req.body.score;
   //----harcoded example end----//
 
   //use incrementScore func from db
