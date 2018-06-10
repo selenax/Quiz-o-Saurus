@@ -55,6 +55,7 @@ export default class Googlelogin extends React.Component {
       <div>
         <GoogleLogin
           clientId='742940875432-d88m20e2l2110l3m3jd24ag46v2a3pbm.apps.googleusercontent.com'
+          img width="20px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
           buttonText="Click here for Google Login"
           onSuccess={this.googleResponse}
           onFailure={this.googleResponse}
@@ -63,3 +64,6 @@ export default class Googlelogin extends React.Component {
     );
   }
 }
+
+
+   
