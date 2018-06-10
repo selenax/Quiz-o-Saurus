@@ -54,18 +54,29 @@ app.get('/auth/google/callback',
     console.log('redirect')
     req.session.token = req.user.token; //cookie?
     res.redirect('/'); //takes client to '/' (homepage)
-    console.log(req.user.profile)
-    //if user doesn't exist in database (export func from db)
-      //pass saveUser func w google info
+
+    var googleId = req.user.profile.id;
+    var displayName = req.user.profile.displayName;
+
+    data.confirmUser(googleId, (err, results) => {
+      if (err) {
+        console.log(`error, cannot sign in`);
+      } else if (!results.length) {
+        console.log(`u don't exist, so save to database`);
+        data.saveUser(googleId, displayName, (err, results) => {
+          if (err) {
+            console.log('not working');
+          } else {
+            console.log('congrats, you exist!!');
+            console.log(results);
+          }
+        });
+      } else {
+        console.log(`it already here hunni`);
+      }
+    });
   }
 );
-
-//might not need this save user in google callback ^
-//post req to database to create new user info
-app.post('/endpoint-for-user-change-l8r', function(req, res) {
-  //create new user info if user doesn't exist in database
-  //find by email, if doesn't exist, create schema
-});
 
 //google log out
 app.get('/logout', (req, res) => {
@@ -80,7 +91,7 @@ app.get('/logout', (req, res) => {
 app.get('/home/leaderboard', function(req, res) {
   //fetch info from database
   data.leaderboardScore(function(err, data) {
-    if(err) {
+    if (err) {
       console.log('not working')
       res.sendStatus(500);
     } else {
@@ -90,11 +101,11 @@ app.get('/home/leaderboard', function(req, res) {
   });
 });
 
-//get request for quizzes - this is for rendering quiz under a SPECIFIC TOPIC
+//get request for quizzes - this is for rendering quiz under a SPECIFIC TOPIC (currently not being used atm :| )
 app.get('/home/quizzes', function(req, res) {
-  //hardcoded first argument in returnQuiz (edit l8r if the name actualy shows in req)
+  //hardcoded first argument in returnQuiz (edit l8r if gonna use this get req in the future)
   data.returnQuiz('dinosaur', function(err, data) {
-    if(err) {
+    if (err) {
       res.sendStatus(500);
     } else {
       console.log('quiz information is fetched!');
@@ -104,22 +115,22 @@ app.get('/home/quizzes', function(req, res) {
 });
 
 //NOTE MAKE SURE TO CHANGE :EMAIL TO :GOOGLEID
-//patch req which is a single score w that quiz name
-app.patch('/home/:email', function(req, res) {
+//patch req updates db single score along w the quiz name
+app.patch('/home/:googleId', function(req, res) {
   console.log('oi');
 
-  //create variable to extract id/email, quiz score, and quiz name
-  var email = req.params.email; //middleware?
+  //googleId is currently set to email (we have to change this because email doesn't exist in req info)
+  var googleId = req.params.googleId; //middleware?
 
-  //----harcoded example----//
-  var quizName = 'fashion'
-  var points = 9
+  //----coded example----//
+  var quizName = req.body.quizName;
+  var points = req.body.score;
   //----harcoded example end----//
 
   //use incrementScore func from db
     //this saves local scores in user info as well as increasing the global score on leaderboard info
-  data.incrementScore(email, quizName, points, function(err, data) {
-    if(err) {
+  data.incrementScore(googleId, quizName, points, function(err, data) {
+    if (err) {
       console.log('boo hoo, not working');
     } else {
       console.log('successfully saved scores!');
