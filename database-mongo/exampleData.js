@@ -1,4 +1,4 @@
-let database = require('./index.js');
+// let database = require('./index.js');
 
 // DON'T USE THIS
 // const userData = {
@@ -75,6 +75,27 @@ const quizData = {
   ]
 };
 
+<<<<<<< HEAD
+// // let insertData = function() {
+// // //   database.saveUser(userData, function(err, savedUser) {
+// // //     if (err) {
+// // //       console.log(err, null);
+// // //     } else {
+// // //       console.log(null, savedUser);
+// // //     }
+// // //   });
+
+// // //   database.saveQuiz(quizData, function(err, savedQuiz) {
+// // //     if (err) {
+// // //       console.log(err, null);
+// // //     } else {
+// // //       console.log(null, savedQuiz);
+// // //     }
+// // //   });
+
+// //   database.incrementScore('ainslie@gmail.com', 'math', 99999);
+// // };
+=======
 let insertData = function() {
   // database.saveUser('106692538271505675540', 'yona n', function(err, savedUser) {
   //   if (err) {
@@ -97,8 +118,9 @@ let insertData = function() {
     console.log(results);
   })
 };
+>>>>>>> 8a2ce68378ac97c7507c4f8c077172d07bd3af33
 
-insertData();
+// // insertData();
 
-// export default userData;
-// export default quizData;
+// // export default userData;
+export default quizData;
