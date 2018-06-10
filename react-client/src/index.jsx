@@ -28,6 +28,10 @@ class App extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.quizFetch();
+  }
+
   //ajax fetch our list of quizzes from the server
   ajaxQuizFetch(cb) {
     $.ajax({
