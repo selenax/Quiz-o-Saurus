@@ -1,5 +1,8 @@
+var token = require('../config.js')
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/dinosaurs');
+// mongoose.connect(token.mongoURI);
 
 var db = mongoose.connection;
 
@@ -12,9 +15,8 @@ db.once('open', function() {
 });
 
 var userSchema = mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  email: String,
+  googleId: String,
+  displayName: String,
   globalScore: {type: Number, default: 0},
   attempts: [
     {
@@ -27,7 +29,8 @@ var userSchema = mongoose.Schema({
 var User = mongoose.model('User', userSchema);
 
 // Save user data
-var saveUser = function(info, callback) {
+var saveUser = function(googleId, displayName, callback) {
+  var info = {'googleId': googleId, 'displayName': displayName};
   var newUser = new User(info);
   newUser.save(function(err, savedEntry) {
     if (err) {
@@ -69,6 +72,17 @@ var saveQuiz = function(info, callback) {
   })
 };
 
+// Confirm if user exists
+var confirmUser = function(googleId, callback) {
+  User.find({'googleId': googleId}, function(err, results) {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, results);
+    }
+  })
+};
+
 // Find by quiz name and return object with with quiz name and quiz questions
 var returnQuiz = function(query, callback) {
   Quiz.find({'quizzes.quizName': query}, function(err, results) {
@@ -81,13 +95,13 @@ var returnQuiz = function(query, callback) {
 };
 
 // Update quiz score and increment global score
-var incrementScore = function(email, quizName, points, callback) {
-  User.find({'email': email, 'attempts.quizName': quizName}, function (err, result) {
+var incrementScore = function(googleId, quizName, points, callback) {
+  User.find({'googleId': googleId, 'attempts.quizName': quizName}, function (err, result) {
     if (err) {
       callback(err, null);
     } else if (result.length === 0) {
       User.findOneAndUpdate(
-        {'email': email},
+        {'googleId': googleId},
         {$inc: {'globalScore': points},
         $push: {
           'attempts': {
@@ -125,6 +139,7 @@ var leaderboardScore = function(callback) {
 
 module.exports.saveUser = saveUser;
 module.exports.saveQuiz = saveQuiz;
+module.exports.confirmUser = confirmUser;
 module.exports.returnQuiz = returnQuiz;
 module.exports.incrementScore = incrementScore;
 module.exports.leaderboardScore = leaderboardScore;
