@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import GoogleLogin from "react-google-login";
-import { PostData } from "./PostData.jsx";
+import { FetchGoogle } from "./FetchGoogle.jsx";
 import { Redirect } from "react-router-dom";
 
 class Root extends Component {
@@ -10,23 +10,23 @@ class Root extends Component {
       loginError: false,
       redirect: false
     };
-    this.signup = this.signup.bind(this);
+    this.signIn = this.signIn.bind(this);
   }
 
-  signup(res, type) {
+  signIn(res, type) {
+      let postData;
     if (type === "google" && res.w3.U3) {
-      const postData = {
+      postData = {
         name: res.w3.ig,
         provider: type,
         email: res.w3.U3,
         provider_id: res.El,
         token: res.Zi.access_token,
         provider_pic: res.w3.Paa
-      };
-    }
+        };
 
     if (postData) {
-      PostData("signup", postData).then(result => {
+      FetchGoogle("signIn", postData).then(result => {
         let responseJson = result;
         sessionStorage.setItem("userData", JSON.stringify(responseJson));
         this.setState({ redirect: true });
@@ -35,16 +35,17 @@ class Root extends Component {
       console.log("goooooogle errrror");
     }
   }
+}
 
   render() {
     if (this.state.redirect || sessionStorage.getItem("userData")) {
-      return <Redirect to={"/home"} />;
+      return <Redirect to={"/home/leaderboard"} />;
     }
 
     const responseGoogle = response => {
       console.log("google console");
       console.log(response);
-      this.signup(response, "google");
+      this.signIn(response, "google");
     };
 
     return (

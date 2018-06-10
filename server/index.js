@@ -86,7 +86,9 @@ app.get('/logout', (req, res) => {
 });
 //------------google oauth end------------//
 
-
+app.get('/api/currentUser', (req, res) => {
+  res.send(req.user);
+});
 //get request for user info (includes email, global score, and score for each attempted quiz)-  this is for rendering scores on leaderboard
 app.get('/home/leaderboard', function(req, res) {
   //fetch info from database
@@ -114,6 +116,8 @@ app.get('/home/quizzes', function(req, res) {
   });
 });
 
+app.use(passport.initialize());
+app.use(passport.session());
 //NOTE MAKE SURE TO CHANGE :EMAIL TO :GOOGLEID
 //patch req updates db single score along w the quiz name
 app.patch('/home/:googleId', function(req, res) {
