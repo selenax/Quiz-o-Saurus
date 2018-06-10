@@ -2,34 +2,46 @@ import React, { Component } from "react";
 import { Button, Icon, Row, Input } from "react-materialize";
 import axios from "axios";
 import { GoogleLogin } from "react-google-login";
+// import token from "./configs.js";
+// console.log(token);
 
-class GoogleLogin extends React.Component {
+export default class Googlelogin extends React.Component {
   constructor() {
     super();
     this.state = { isAuthenticated: false, user: null, token: "" };
   }
 
-  logout = () => {
+  logout() {
     this.setState({ isAuthenticated: false, token: "", user: null });
-  };
+  }
 
-  googleResponse = e => {};
-  onFailure = error => {
+  onFailure(error) {
     alert(error);
-  };
+  }
 
-  fetchUser() {
-    axios.get("/home/currentUser").then(({ user: user }) => {
-      this.setState({
-        isAuthenticated: true
+  googleResponse(response) {
+    const tokenBlob = new Blob(
+      [JSON.stringify({ access_token: response.accessToken }, null, 2)],
+      { type: "application/json" }
+    );
+    const options = {
+      method: "POST",
+      body: tokenBlob,
+      mode: "cors",
+      cache: "default"
+    };
+    fetch("http://localhost:3000/auth/google", options).then(r => {
+      const token = r.headers.get("x-auth-token");
+      r.json().then(user => {
+        if (token) {
+          this.setState({ isAuthenticated: true, user, token });
+        }
       });
     });
   }
-  googleOnClick() {
-    this.fetchUser();
-  }
+
   render() {
-    let content = !!this.state.isAuthenticated ? (
+    return !!this.state.isAuthenticated ? (
       <div>
         <p>Authenticated</p>
         <div>{this.state.user.email}</div>
@@ -42,15 +54,12 @@ class GoogleLogin extends React.Component {
     ) : (
       <div>
         <GoogleLogin
-          clientId="XXXXXXXXXX"
-          buttonText="Login"
+          clientId='742940875432-d88m20e2l2110l3m3jd24ag46v2a3pbm.apps.googleusercontent.com'
+          buttonText="Click here for Google Login"
           onSuccess={this.googleResponse}
           onFailure={this.googleResponse}
         />
       </div>
     );
-    return <div className="GoogleLogin">{content}</div>;
   }
 }
-
-export default GoogleLogin;
