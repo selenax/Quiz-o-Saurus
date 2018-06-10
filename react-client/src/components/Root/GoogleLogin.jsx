@@ -64,6 +64,3 @@ export default class Googlelogin extends React.Component {
     );
   }
 }
-
-
-   

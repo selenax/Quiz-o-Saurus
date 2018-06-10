@@ -13,7 +13,15 @@ const QuizSelected = (props) => {
     7: false,
     8: false,
     9: false
-  };
+  }
+
+  //patch to the user googleId
+  const updateUserScore = function(googleId) {
+    $.ajax({
+      url: `home/${googleId}`,
+      method: "PATCH"
+    })
+  }
 
   function scoreCounter (result) {
     let score = 0;
