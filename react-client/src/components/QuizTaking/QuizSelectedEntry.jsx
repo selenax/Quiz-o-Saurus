@@ -14,9 +14,9 @@ const QuizSelectedEntry = (props) => {
     <div className="quiz-question-entry">
       {props.id+1}) {props.questions}
       <div className="quiz-answer-entry">
-        <button onClick={clickHandler} value={props.selection[0]}> {props.selection[0]} </button>
-        <button onClick={clickHandler} value={props.selection[1]}> {props.selection[1]} </button>
-        <button onClick={clickHandler} value={props.selection[2]}> {props.selection[2]} </button>
+        <button onClick={clickHandler} value={props.selection[0]}> {props.selection[0]} </button><br />
+        <button onClick={clickHandler} value={props.selection[1]}> {props.selection[1]} </button><br />
+        <button onClick={clickHandler} value={props.selection[2]}> {props.selection[2]} </button><br />
         <button onClick={clickHandler} value={props.selection[3]}> {props.selection[3]} </button>
       </div>
     </div>
