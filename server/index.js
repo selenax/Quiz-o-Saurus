@@ -54,33 +54,10 @@ app.get('/auth/google/callback',
     req.session.token = req.user.token; //cookie?
     res.redirect('/'); //takes client to '/' (homepage)
     console.log(req.user.profile)
-    var googleId = req.user.profile.id;
-    var displayName = req.user.profile.displayName;
-    //check if user exists in database
-    data.confirmUser(googleId, function(err, data) {
-      if(err) { //if user doesn't exist in database
-        console.log(`user isn't found, so save it 2 database`);
-        //save first time user into database
-        data.saveUser(googleId, displayName, function(err, data) {
-          if(err) {
-            console.log('not saving...');
-          } else {
-            console.log('new user is saved!!');
-          }
-        });
-      } else {
-        console.log('it hereeeee!!!');
-      }
-    });
+    //if user doesn't exist in database (export func from db)
+      //pass saveUser func w google info
   }
 );
-
-//might not need this save user in google callback ^
-//post req to database to create new user info
-app.post('/endpoint-for-user-change-l8r', function(req, res) {
-  //create new user info if user doesn't exist in database
-  //find by email, if doesn't exist, create schema
-});
 
 //google log out
 app.get('/logout', (req, res) => {
