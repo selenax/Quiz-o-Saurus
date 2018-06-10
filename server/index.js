@@ -54,8 +54,24 @@ app.get('/auth/google/callback',
     req.session.token = req.user.token; //cookie?
     res.redirect('/'); //takes client to '/' (homepage)
     console.log(req.user.profile)
-    //if user doesn't exist in database (export func from db)
-      //pass saveUser func w google info
+    var googleId = req.user.profile.id;
+    var displayName = req.user.profile.displayName;
+    //check if user exists in database
+    data.confirmUser(googleId, function(err, data) {
+      if(err) { //if user doesn't exist in database
+        console.log(`user doesn't exist, let's save it!`);
+        //save first time user into database
+        data.saveUser(googleId, displayName, function(err, data) {
+          if(err) {
+            console.log('not saving...');
+          } else {
+            console.log('new user is saved!!');
+          }
+        });
+      } else { //if user already exists in database
+        console.log('it already hereeeee!!!');
+      }
+    });
   }
 );
 
