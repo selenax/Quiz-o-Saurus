@@ -48,7 +48,7 @@ app.use(cookieSession({name: 'session', keys: ['810']}));
 app.use(cookieParser());
 
 //after google verifyes from func line 50, this func gets invoked immediately
-app.get('/auth/google/callback',
+app.get('/auth/google',
   passport.authenticate('google', {failureRedirect: '/'}),
   (req, res) => {
     console.log('redirect')
@@ -115,6 +115,8 @@ app.get('/home/quizzes', function(req, res) {
     }
   });
 });
+
+
 
 app.use(passport.initialize());
 app.use(passport.session());

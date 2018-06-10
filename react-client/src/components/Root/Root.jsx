@@ -55,7 +55,7 @@ class Root extends Component {
             <h2 id="welcomeText" />
 
             <GoogleLogin
-              clientId='742940875432-d88m20e2l2110l3m3jd24ag46v2a3pbm.apps.googleusercontent.com'
+              clientId='693481139065-u6kaus22pakvl1l3t9llh81ndpav3sht.apps.googleusercontent.com '
               buttonText="Login with Google"
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
