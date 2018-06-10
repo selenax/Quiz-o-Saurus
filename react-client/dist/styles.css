@@ -42,12 +42,12 @@ li {
 }
 
 .nav {
-  background-color: #6495ED;
+  background-color: #E5D9FF;
   height: 60px;
   font-family: 'Lobster', Georgia, Times, serif;
-  vertical-align: middle;
   font-size: 25px;
-  line-height: 40px;
+  line-height: 20px;
+  border-bottom: 5px solid white;
 }
 
 ul {
@@ -100,6 +100,17 @@ ul {
   color: palevioletred
 }
 
+.quiz-list-container {
+  margin-top: 70px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .quiz-list-display {
-  padding-right:30px;
+  border: 1px solid black;
+  margin: 5px;
+}
+
+.pageRender {
+  text-align: center;
 }
