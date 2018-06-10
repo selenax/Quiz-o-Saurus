@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import $ from "jquery";
-
+import {Redirect} from 'react-router-dom';
 import Dinosaur from "../../database-mongo/exampleData.js";
 import QuizListComponent from "./components/Home/QuizListComponent.jsx";
 import Leaderboard from "./components/LeaderboardComponents/Leaderboard.jsx";
@@ -16,7 +16,8 @@ class App extends React.Component {
     this.state = {
       view: "root",
       quizzes: [],
-      currentQuiz: ''
+      currentQuiz: '',
+      redirect: false
     };
     this.viewUpdate = this.viewUpdate.bind(this);
   }
