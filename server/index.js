@@ -57,11 +57,9 @@ app.get('/auth/google/callback',
     var googleId = req.user.profile.id;
     var displayName = req.user.profile.displayName;
 
-    console.log(googleId, displayName);
-
     data.confirmUser(googleId, (err, results) => {
       if (err) {
-        console.log(`error, cannot sign in`)
+        console.log(`error, cannot sign in`);
       } else if (!results.length) {
         console.log(`u don't exist, so save to database`);
         data.saveUser(googleId, displayName, (err, results) => {
@@ -73,7 +71,7 @@ app.get('/auth/google/callback',
           }
         });
       } else {
-        console.log(`it already here hunni`)
+        console.log(`it already here hunni`);
       }
     });
   }
