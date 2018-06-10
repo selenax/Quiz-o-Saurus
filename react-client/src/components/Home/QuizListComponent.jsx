@@ -10,7 +10,7 @@ const QuizListComponent = (props) => {
     <div className="quiz-list-container">
       <ul>
         {quizEntries}
-        </ul>
+      </ul>
     </div>
   );
 }
