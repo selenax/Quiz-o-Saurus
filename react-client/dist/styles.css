@@ -60,12 +60,14 @@ ul {
 /*leaderboard*/
 .leaderboardlist {
   padding: 0px 10% 0px 10%;
+  text-align: center;
+  margin: 0 auto;
 }
 
 /*leaderboard entry*/
 .leaderboard-list-item {
   margin: 50px;
-  list-style: none;
+  width: 40%;
   border: 1px solid #77777769;
   background-color: #fdfdfd;
   border-radius: 4px;
@@ -119,12 +121,22 @@ ul {
   font-size: 20px;
 }
 
+.quiz-answer-submission {
+  text-align: center;
+}
+
 .quiz-question-entry {
   height: 200px;
   margin: 20px;
   padding: 30px;
   background-color: #fffd5d;
   border: 1px solid black;
+}
+
+.quiz-answer-confirmation {
+  height: 50px;
+  background-color: pink;
+  border: 2px solid #FF9393;
 }
 
 .quiz-answer-entry {
