@@ -4,6 +4,13 @@ a {
   background-color: #8FBC8F;
 }
 
+.button-select {
+  padding: 20px;
+  border-width: 9px;
+  border-style: solid;
+  border-color: green;
+}
+
 img {
   border: 1px solid #ddd;
   border-radius: 4px;
