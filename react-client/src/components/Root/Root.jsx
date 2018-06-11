@@ -10,10 +10,11 @@ class Root extends Component {
       loginError: false,
       redirect: false
     };
-    this.signIn = this.signIn.bind(this);
+    this.google = this.google.bind(this);
   }
 
-  signIn(res, type) {
+  google(res, type) {
+    console.log('yaooooona')
     let postData;
     if (type === "google" && res.w3.U3) {
       postData = {
@@ -26,7 +27,7 @@ class Root extends Component {
       };
 
       if (postData) {
-        FetchGoogle("signIn", postData).then(result => {
+        FetchGoogle("google", postData).then(result => {
           let responseJson = result;
           sessionStorage.setItem("userData", JSON.stringify(responseJson));
           this.setState({ redirect: true });
@@ -45,7 +46,7 @@ class Root extends Component {
     const responseGoogle = response => {
       console.log("google console");
       console.log(response);
-      this.signIn(response, "google");
+      this.google(response, "google");
     };
 
     return (
@@ -57,7 +58,7 @@ class Root extends Component {
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
           />
-          <img src={"https://cliparts.zone/img/2079587.jpg"} />
+          <img src={"https://cdn130.picsart.com/238899884057212.png?r1024x1024"} />
         </div>
         <div className="dino-view">
         <b>Learn your dino facts here!</b>

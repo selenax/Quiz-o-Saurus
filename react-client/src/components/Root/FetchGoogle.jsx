@@ -1,13 +1,12 @@
 export function FetchGoogle (type, userData) {
-  let BaseURL = '/';
+  let BaseURL = '/auth/';
 
   return new Promise((resolve, reject) =>{
-  fetch(BaseURL, {
+  fetch(BaseURL+type, {
       method: 'POST',
   })
   .then((response) => 
   response.json())
-  .then(()=>console.log('TAKE MY MONEY'))
   .then((res) => {
       resolve(res);
   })
