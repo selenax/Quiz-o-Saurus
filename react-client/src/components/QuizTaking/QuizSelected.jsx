@@ -36,6 +36,7 @@ const QuizSelected = (props) => {
       }
     }
     updateUserScore(score)
+    alert('You got ' + score + ' right!');
   }
 
   const questionsEntries = props.questionsData[0].questions.map ((question, id) => {
