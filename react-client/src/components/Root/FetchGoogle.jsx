@@ -1,5 +1,5 @@
 export function FetchGoogle (type, userData) {
-  let BaseURL = '/auth/google';
+  let BaseURL = '/';
 
   return new Promise((resolve, reject) =>{
   fetch(BaseURL, {

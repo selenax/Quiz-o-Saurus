@@ -14,7 +14,7 @@ class Root extends Component {
   }
 
   signIn(res, type) {
-      let postData;
+    let postData;
     if (type === "google" && res.w3.U3) {
       postData = {
         name: res.w3.ig,
@@ -23,19 +23,19 @@ class Root extends Component {
         provider_id: res.El,
         token: res.Zi.access_token,
         provider_pic: res.w3.Paa
-        };
+      };
 
-    if (postData) {
-      FetchGoogle("signIn", postData).then(result => {
-        let responseJson = result;
-        sessionStorage.setItem("userData", JSON.stringify(responseJson));
-        this.setState({ redirect: true });
-      });
-    } else {
-      console.log("goooooogle errrror");
+      if (postData) {
+        FetchGoogle("signIn", postData).then(result => {
+          let responseJson = result;
+          sessionStorage.setItem("userData", JSON.stringify(responseJson));
+          this.setState({ redirect: true });
+        });
+      } else {
+        console.log("goooooogle errrror");
+      }
     }
   }
-}
 
   render() {
     if (this.state.redirect || sessionStorage.getItem("userData")) {
@@ -49,22 +49,29 @@ class Root extends Component {
     };
 
     return (
-      <div className="row body">
-        <div className="medium-12 columns">
-          <div className="medium-12 columns">
-            <h2 id="welcomeText" />
-
-            <GoogleLogin
-              clientId='693481139065-u6kaus22pakvl1l3t9llh81ndpav3sht.apps.googleusercontent.com '
-              buttonText="Login with Google"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-            />
-          </div>
+      <div className="rootContainer">
+        <div className="loginButton">
+          <GoogleLogin
+            clientId="693481139065-u6kaus22pakvl1l3t9llh81ndpav3sht.apps.googleusercontent.com"
+            buttonText="Click here to login with Google"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+          />
+          <img src={"https://cliparts.zone/img/2079587.jpg"} />
+        </div>
+        <div className="dino-view">
+        <b>Learn your dino facts here!</b>
+          <img
+            src={
+              "https://content.mycutegraphics.com/graphics/chalkboard/dinosaur-chalkboard.png"
+            }
+            className="dino-img"
+          />
+         
         </div>
       </div>
     );
   }
 }
+
 export default Root;
- 
